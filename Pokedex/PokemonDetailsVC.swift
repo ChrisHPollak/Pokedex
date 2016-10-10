@@ -29,13 +29,45 @@ class PokemonDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		pokemonNameLabel.text = pokemon.name.capitalized
+		mainImageView.image = UIImage(named: "\(pokemon.pokedexID)")
+		currenteEvoImageView.image = UIImage(named: "\(pokemon.pokedexID)")
+		pokedexIDLabel.text = "\(pokemon.pokedexID)"
+		
+		pokemon.downloadPokemonDetails {
+			
+			//will only be called after the network call is complete
+			self.updateUI()
+		}
 
-
-        // Do any additional setup after loading the view.
     }
 
 	@IBAction func backButtonPressed(_ sender: Any) {
 		dismiss(animated: true, completion: nil)
+	}
+	
+	func updateUI() {
+		
+		attackLabel.text = pokemon.attack
+		defenseLabel.text = pokemon.defense
+		heightLabel.text = pokemon.height
+		widthLabel.text = pokemon.weight
+		typeLabel.text = pokemon.type
+		descriptionLabel.text = pokemon.description
+		
+		if pokemon.nextEvolutionID == "" {
+			evolutionLabel.text = "No mo evolutions"
+			nextEvoImageView.isHidden = true
+			
+		} else {
+			
+			nextEvoImageView.isHidden = false
+			nextEvoImageView.image = UIImage(named: "\(pokemon.nextEvolutionID)")
+			let evoString = "Next Evolution: \(pokemon.nextEvolutionName.capitalized) LVL \(pokemon.nextEvolutionLevel)"
+			evolutionLabel.text = evoString
+			
+		}
+		
 	}
 
 }
