@@ -12,6 +12,13 @@ class Pokemon {
 	
 	fileprivate var _name: String!
 	fileprivate var _pokedexID: Int!
+	private var _description: String!
+	private var _type: String!
+	private var _defense: String!
+	private var _attack: String!
+	private var _height: String!
+	private var _width: String!
+	private var _nextEvolution: String!
 	
 	var name: String {
 		return _name
